@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { errorMessage, timeMessage } from 'src/app/shared/alerts/alerts';
 import { UserLogin } from '../../Model/user';
 import { AuthService } from '../../Service/auth.service';
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   loginForm!:FormGroup;
   user!:UserLogin;
 
-  constructor(public authService: AuthService,public router:Router,private fb:FormBuilder) {
+  constructor(public authService: AuthService,public router:Router,private fb:FormBuilder, private spinner: NgxSpinnerService) {
     this.createFrom();
   }
 
@@ -28,28 +29,43 @@ export class LoginComponent implements OnInit {
       });
     }else{
       this.setUser();
-      this.authService.login(this.user).subscribe((data:any)=>{
-        timeMessage('Sesion Iniciada',1500)
-        this.router.navigate(['/main/home'])
-      },error=>{
-        errorMessage('Email o Contraseña Incorrecta')
-      });
+      //Cambiar el Suscribe
+      // this.authService.login(this.user).subscribe((data:any)=>{
+      //   timeMessage('Sesion Iniciada',1500)
+      //   this.router.navigate(['/main/home'])
+      // },error=>{
+      //   errorMessage('Email o Contraseña Incorrecta')
+      // });
+      
+      //SPINNER
+      this.spinner.show()
+      setTimeout(() => {
+        this.spinner.hide()
+      }, 1000);
+      //PETICION
+      this.authService.login(this.user).subscribe({
+        next: (v) => { 
+          this.router.navigate(['/main/home'])
+        },
+        error: (e) => errorMessage('Email o Contraseña Incorrecta'),
+        complete: () => console.info('complete') 
+      })
     }
   }
 
   createFrom():void{
     this.loginForm = this.fb.group({
-      email:['', [Validators.required,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'), Validators.email]],
+      email:['', [Validators.required,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')]],
       password:['',[Validators.required,Validators.minLength(8)]]
     });
   }
 
-  get getEmail(){
-    return this.loginForm.get('email') && this.loginForm.get('email')?.touched
-  }
-  get getPassword(){
-    return this.loginForm.get('password') && this.loginForm.get('password')?.touched
-  }
+  // get getEmail(){
+  //   return this.loginForm.get('email') && this.loginForm.get('email')?.touched
+  // }
+  // get getPassword(){
+  //   return this.loginForm.get('password') && this.loginForm.get('password')?.touched
+  // }
 
   setUser():void{
     this.user = {

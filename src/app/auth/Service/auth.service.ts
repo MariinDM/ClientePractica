@@ -18,7 +18,6 @@ export class AuthService {
     .pipe(
       map((res:any)=>{
         this.saveToken(res.token.token)
-        //console.log(res.token.token)
         return res
       }),
       catchError((err)=>this.handlerError(err))
@@ -27,7 +26,7 @@ export class AuthService {
 
   private saveToken(token:string):void{
     localStorage.setItem("token",token)
-    //this.cookie.set('token',token)
+
   }
 
   private handlerError(err:any):Observable<never>{

@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/auth/Service/auth.service';
 import { Menu } from '../../Model/menu';
 import { MenuService } from '../../Service/menu.service';
 
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -11,7 +12,7 @@ import { MenuService } from '../../Service/menu.service';
 })
 export class MainComponent implements OnInit {
 
-  fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
+  fillerNav = Array.from({length: 4}, (_, i) => `Item ${i + 1}`);
 
   categoryData!:Menu[]
 
@@ -27,6 +28,7 @@ export class MainComponent implements OnInit {
 
 
   constructor(private mainService:MenuService, private authService:AuthService, private router:Router) {}
+  
     
   ngOnInit(): void {
     this.getall()
