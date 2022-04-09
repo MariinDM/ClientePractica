@@ -3,6 +3,7 @@ export interface User {
     email:string;
     password:string;
     status:boolean;
+    role_id:number;
 }
 
 export interface UserLogin {

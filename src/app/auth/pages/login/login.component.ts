@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { Router } from '@angular/router';
+import { errorMessage, timeMessage } from 'src/app/shared/alerts/alerts';
 import { UserLogin } from '../../Model/user';
 import { AuthService } from '../../Service/auth.service';
 
@@ -28,17 +29,18 @@ export class LoginComponent implements OnInit {
     }else{
       this.setUser();
       this.authService.login(this.user).subscribe((data:any)=>{
-        alert('Sesion Iniciada')
+        timeMessage('Sesion Iniciada',1500)
+        this.router.navigate(['/main/home'])
       },error=>{
-        console.log('Email o Contraseña Incorrecta')
+        errorMessage('Email o Contraseña Incorrecta')
       });
     }
   }
 
   createFrom():void{
     this.loginForm = this.fb.group({
-      email:['', [Validators.required,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')]],
-      password:['',[Validators.required]]
+      email:['', [Validators.required,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$'), Validators.email]],
+      password:['',[Validators.required,Validators.minLength(8)]]
     });
   }
 

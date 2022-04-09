@@ -1,47 +1,20 @@
 <div class="contenedor">
     <mat-card>
       <mat-card-content>
-        <form class="form-cont">
+        <form class="form-cont" [formGroup]="loginForm" (ngSubmit)="register()">
           <br>
           <h1>Registrarse</h1>
-          <!-- <mat-error *ngIf="!loginValid">
-            The username and password were not recognized
-          </mat-error> -->
           <br>
           <div class="cont-input">
             <mat-form-field>
-              <input matInput placeholder="Username" type="text"  name="username" required />
-              <!-- <mat-error class="invalid-feedback" *ngIf="email.invalid && (email.dirty || email.touched)">
-                <div *ngIf="email.errors?.['required']">
-                  Introduzca un correo electrónico válido por favor {{ email.value }}
-                </div>
-                <div *ngIf="email.errors && email.errors?.['pattern']">
-                  El correo electrónico no sigue el formato correcto. Sigue este ejemplo: pedro@gmail.com
-                </div>
-              </mat-error> -->
+              <input matInput placeholder="Username" type="text"  name="username" required formControlName="username"/>
             </mat-form-field>
             <mat-form-field>
-              <input matInput placeholder="Email" type="email"  name="email" aria-describedby="emailHelp" required />
-              <!-- <mat-error class="invalid-feedback" *ngIf="email.invalid && (email.dirty || email.touched)">
-                <div *ngIf="email.errors?.['required']">
-                  Introduzca un correo electrónico válido por favor {{ email.value }}
-                </div>
-                <div *ngIf="email.errors && email.errors?.['pattern']">
-                  El correo electrónico no sigue el formato correcto. Sigue este ejemplo: pedro@gmail.com
-                </div>
-              </mat-error> -->
+              <input matInput placeholder="Email" type="email"  name="email" aria-describedby="emailHelp" required formControlName="email"/>
             </mat-form-field>
             <br>
             <mat-form-field>
-              <input matInput type="password" name="password" minlength="8"  required  id="inpPassword"  placeholder="Password" required   />
-              <!-- <mat-error class="invalid-feedback" *ngIf="password.invalid && (password.dirty || password.touched)">
-                <div *ngIf="password.errors?.['minlength']">
-                  Introduzca una Contraseña con 8 Caracteres Minimo
-                </div>
-                <div *ngIf="password.errors?.['required']">
-                  Introduzca una contraseña por favor
-                </div>
-              </mat-error> -->
+              <input matInput type="password" name="password" minlength="8"  required  id="inpPassword"  placeholder="Password" required  formControlName="password"/>
             </mat-form-field>
           </div>
           <br>

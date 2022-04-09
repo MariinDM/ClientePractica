@@ -11,15 +11,14 @@ export class AuthService {
 
   serverURL=environment.apiURL  
 
-
   constructor(private http:HttpClient) { }
 
   login(user:UserLogin):Observable<any>{
-    return this.http.post(`${this.serverURL}login`, user)
+    return this.http.post(`${this.serverURL}user/login`, user)
     .pipe(
       map((res:any)=>{
-        this.saveToken(res.token)
-        console.log(res)
+        this.saveToken(res.token.token)
+        //console.log(res.token.token)
         return res
       }),
       catchError((err)=>this.handlerError(err))
@@ -36,7 +35,6 @@ export class AuthService {
     if(err){
       errorMessage=`Error: code ${err.mesagge}`;
     }
-    window.alert(errorMessage)
     return throwError(errorMessage)
   }
 
@@ -50,6 +48,6 @@ export class AuthService {
     this.http.post(`${this.serverURL}logout`,token)
   }
   register(user: User): Observable<any> {
-    return this.http.post(`${this.serverURL}users`, user);
+    return this.http.post(`${this.serverURL}user/register`, user);
   }
 }

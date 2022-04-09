@@ -15,7 +15,7 @@ mat-card {
     display: flex;
     
     align-items: center;
-    background-image: linear-gradient(180deg, #ffcb8d 0, #ffcf83 5%, #ffd278 10%, #ffd46f 15%, #ffd666 20%, #efd65e 25%, #dbd657 30%, #c4d552 35%, #aad34f 40%, #8dd04e 45%, #6acc50 50%, #39c755 55%, #00c35e 60%, #00be69 65%, #00ba77 70%, #00b787 75%, #00b398 80%, #00b0ab 85%, #00aebd 90%, #00acd0 95%, #00aae2 100%);
+    background-image: linear-gradient(180deg, #505467 0, #1f3259 50%, #00154b 100%);
     background-size: 100%;
   }
   .registrate{
