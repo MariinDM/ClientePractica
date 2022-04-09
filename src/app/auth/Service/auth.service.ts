@@ -48,6 +48,6 @@ export class AuthService {
     this.http.post(`${this.serverURL}logout`,token)
   }
   register(user: User): Observable<any> {
-    return this.http.post(`${this.serverURL}user/register`, user);
+    return this.http.post(`${this.serverURL}user/register`, user)
   }
 }

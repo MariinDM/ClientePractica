@@ -8,7 +8,7 @@ import { ModulesModule } from '../shared/modules/modules.module';
 
 @NgModule({
   declarations: [
-    MainComponent
+    MainComponent,
   ],
   imports: [
     CommonModule,

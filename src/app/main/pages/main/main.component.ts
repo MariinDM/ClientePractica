@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/Service/auth.service';
 import { Menu } from '../../Model/menu';
 import { MenuService } from '../../Service/menu.service';
 
@@ -25,7 +26,7 @@ export class MainComponent implements OnInit {
   );
 
 
-  constructor(private mainService:MenuService, router:Router) {}
+  constructor(private mainService:MenuService, private authService:AuthService, private router:Router) {}
     
   ngOnInit(): void {
     this.getall()
@@ -39,5 +40,9 @@ export class MainComponent implements OnInit {
     ,error=>{
       
     });
+  }
+  logout():void{
+    this.authService.logout()
+    this.router.navigate(['/auth/login'])
   }
 }

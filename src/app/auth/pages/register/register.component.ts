@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { errorMessage, timeMessage } from 'src/app/shared/alerts/alerts';
 import { User } from '../../Model/user';
 import { AuthService } from '../../Service/auth.service';
 
@@ -28,10 +29,10 @@ export class RegisterComponent implements OnInit {
     }else{
       this.setUser();
       this.authService.register(this.user).subscribe((data:any)=>{
-        alert('Sesion Iniciada')
-        this.router.navigate(['/main/home'])
+        timeMessage('Usuario Creado',1000)
+        this.router.navigate(['/auth/login'])
       },error=>{
-        console.log('Email o Contraseña Incorrecta')
+        errorMessage('Datos Incorrectos')
       });
     }
   }
