@@ -31,9 +31,13 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { MatTableExporterModule } from 'mat-table-exporter';
 
 const MaterialsModule = [
+  MatTableExporterModule,
+  MatDialogModule,
   NgxSpinnerModule,
   MatInputModule,
   MatFormFieldModule,

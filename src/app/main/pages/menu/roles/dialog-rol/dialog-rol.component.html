@@ -1,0 +1,18 @@
+<form class="form-cont" [formGroup]="rolForm" (ngSubmit)="update()">
+    <h2 mat-dialog-title>Seccion Update</h2>
+    <mat-dialog-content class="mat-typography">
+        <div class="cont-input">
+            <mat-form-field>
+                <input matInput placeholder="Name" type="text" name="name" required formControlName="name"
+                    value="{{rol.name}}" />
+            </mat-form-field>
+            <br>
+        </div>
+        <br>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button [mat-dialog-close]="true" color="primary" [disabled]="rolForm.invalid"
+            type="submit">Update</button>
+    </mat-dialog-actions>
+</form>

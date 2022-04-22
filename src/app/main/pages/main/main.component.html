@@ -1,46 +1,47 @@
 <div class="example-container">
-    <mat-toolbar color="primary" class="example-toolbar">
-      <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-      <h1 class="example-app-name">Responsive App</h1>
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <mat-icon>settings</mat-icon>
+  <!-- TOOLBAR -->
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="example-app-name">Responsive App</h1>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>settings</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <a routerLink="perfil" mat-menu-item>
+        <mat-icon>person</mat-icon><span>Ver Perfil</span>
+      </a>
+
+      <button mat-menu-item>
+        <span (click)="logout()">
+          <mat-icon>cancel</mat-icon>Cerrar Sesión
+        </span>
       </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>dialpad</mat-icon>
-          <span>Redial</span>
-        </button>
-        <button mat-menu-item>
-          <span (click)="logout()"><mat-icon>cancel</mat-icon>Cerrar Sesión</span>
-        </button>
-      </mat-menu>
-    </mat-toolbar>
-  
-    <mat-sidenav-container class="example-sidenav-container">
-      <mat-sidenav #snav fixedTopGap="80">
-        <mat-accordion class="example-headers-align" multi>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                <mat-icon>account_circle</mat-icon>Personal data
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-        
-            <mat-form-field appearance="fill">
-              <mat-label>First name</mat-label>
-            </mat-form-field>
-          </mat-expansion-panel>
-        </mat-accordion>
-        <!-- <mat-nav-list>
-          <a mat-list-item routerLink="{{item.name}}" *ngFor="let item of categoryData">
-            <mat-icon>{{item.icon}}</mat-icon>
-            <span>{{item.name}}</span>
-          </a>
-        </mat-nav-list> -->
-      </mat-sidenav>
-  
-      <mat-sidenav-content>
-        <p *ngFor="let content of fillerContent">{{content}}</p>
-      </mat-sidenav-content>
-    </mat-sidenav-container>
+    </mat-menu>
+  </mat-toolbar>
+
+  <!-- MENU DINAMICO -->
+  <mat-sidenav-container class="example-sidenav-container">
+    <mat-sidenav #snav fixedTopGap="80">
+      <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel *ngFor="let item of categoryData">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>{{item.icon}}</mat-icon>{{item.name}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-action-row class="separate" *ngFor="let item2 of item.views">
+            <a mat-button color="primary" routerLink="panel/{{item2.route}}">
+              <mat-icon>{{item2.icon}}</mat-icon>{{item2.name}}
+            </a>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

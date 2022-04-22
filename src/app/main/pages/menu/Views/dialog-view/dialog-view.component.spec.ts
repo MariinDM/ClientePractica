@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Prueba2Component } from './prueba2.component';
+import { DialogViewComponent } from './dialog-view.component';
 
-describe('Prueba2Component', () => {
-  let component: Prueba2Component;
-  let fixture: ComponentFixture<Prueba2Component>;
+describe('DialogViewComponent', () => {
+  let component: DialogViewComponent;
+  let fixture: ComponentFixture<DialogViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Prueba2Component ]
+      declarations: [ DialogViewComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Prueba2Component);
+    fixture = TestBed.createComponent(DialogViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

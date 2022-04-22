@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Prueba1Component } from './prueba1/prueba1.component';
-import { Prueba2Component } from './prueba2/prueba2.component';
+import { TableComponent } from './categories/table/table.component';
+import { TableRolComponent } from './roles/table-rol/table-rol.component';
+import { TableViewComponent } from './Views/table-view/table-view.component';
 
 const routes: Routes = [
-  {path:'Usuarios', component:Prueba1Component},
-  {path:'Correos', component:Prueba2Component},
+  { path:'cate', component: TableComponent},
+  { path:'view', component: TableViewComponent},
+  { path:'roles', component: TableRolComponent}
+
 ];
 
 @NgModule({
