@@ -14,35 +14,15 @@ export class ViewService {
   constructor(private http:HttpClient) { }
 
   getall(): Observable<any> {
-    const token:any = localStorage.getItem('token')
-    const reqHeader = new HttpHeaders({ 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.get(`${this.serverURL}views`,{headers:reqHeader});
+    return this.http.get(`${this.serverURL}views`);
   }
   getone(id:number): Observable<any> {
-    const token:any = localStorage.getItem('token')
-    const reqHeader = new HttpHeaders({ 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.get(`${this.serverURL}views/${id}`,{headers:reqHeader});
+    return this.http.get(`${this.serverURL}views/${id}`);
   }
   update(id:number, views:View):Observable<any>{
-    const token:any = localStorage.getItem('token')
-    const reqHeader = new HttpHeaders({ 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.put(`${this.serverURL}views/${id}`, views,{headers:reqHeader})
+    return this.http.put(`${this.serverURL}views/${id}`, views)
   }
   delete(id:number):Observable<any>{
-    const token:any = localStorage.getItem('token')
-    const reqHeader = new HttpHeaders({ 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.delete(`${this.serverURL}views/${id}`,{headers:reqHeader})
+    return this.http.delete(`${this.serverURL}views/${id}`)
   }
 }

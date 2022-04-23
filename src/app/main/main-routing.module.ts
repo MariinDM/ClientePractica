@@ -7,8 +7,8 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
 const routes: Routes = [
   {path:'home', component:MainComponent,canActivate:[CheckSesionGuard], children:[
     { path: 'panel', loadChildren: () => import('./pages/menu/menu.module').then((m) => m.MenuModule)},
+    { path: 'perfil', component:PerfilComponent },
   ]},
-  { path: 'perfil', component:PerfilComponent },
 ]
 
 @NgModule({

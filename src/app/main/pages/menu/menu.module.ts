@@ -10,7 +10,8 @@ import { TableViewComponent } from './Views/table-view/table-view.component';
 import { DialogViewComponent } from './Views/dialog-view/dialog-view.component';
 import { DialogRolComponent } from './roles/dialog-rol/dialog-rol.component';
 import { TableRolComponent } from './roles/table-rol/table-rol.component';
-
+import { TableUserComponent } from './users/table-user/table-user.component';
+import { DialogUserComponent } from './users/dialog-user/dialog-user.component';
 
 @NgModule({
     declarations: [
@@ -19,7 +20,9 @@ import { TableRolComponent } from './roles/table-rol/table-rol.component';
         TableViewComponent,
         DialogViewComponent,
         DialogRolComponent,
-        TableRolComponent
+        TableRolComponent,
+        TableUserComponent,
+        DialogUserComponent,
     ],
     entryComponents: [
         DialogComponent,

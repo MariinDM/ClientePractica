@@ -17,17 +17,17 @@ export class TableRolComponent implements AfterViewInit {
   dataRol!: any[]
 
   displayedColumns: string[] = ['name', 'status', 'options'];
-  dataSource!: MatTableDataSource<any>;
-
+  dataSource!: MatTableDataSource<any>; 
   @ViewChild(MatPaginator) paginator!: MatPaginator | any;
   @ViewChild(MatSort) sort!: MatSort | any;
+
 
   constructor(private rolService: RolService, public dialog: MatDialog) {
 
     this.getall()
 
   }
-  getall():void{
+  getall(): void {
     this.rolService.getall().subscribe((data: any) => {
       this.dataRol = data.data
 
@@ -55,7 +55,7 @@ export class TableRolComponent implements AfterViewInit {
     }
   }
 
-  openDialog(id:number) {
+  openDialog(id: number) {
     this.dialog.open(DialogRolComponent, {
       data: {
         id: id
@@ -65,11 +65,11 @@ export class TableRolComponent implements AfterViewInit {
   }
 
 
-  delete(id:number):void{
+  delete(id: number): void {
     this.rolService.delete(id).subscribe({
-      next:(v)=>successDialog('Estatus Actualizado'),
-      error:(e)=>errorMessage('Ocurrio un Error'),
-      complete:()=>console.info('Completed')
+      next: (v) => successDialog('Estatus Actualizado'),
+      error: (e) => errorMessage('Ocurrio un Error'),
+      complete: () => console.info('Completed')
     })
   }
 

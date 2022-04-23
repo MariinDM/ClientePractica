@@ -5,6 +5,7 @@ import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './pages/main/main.component';
 import { ModulesModule } from '../shared/modules/modules.module';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
   imports: [
     CommonModule,
     MainRoutingModule,
-    ModulesModule
+    ModulesModule,
+    ReactiveFormsModule
   ]
 })
 export class MainModule { }

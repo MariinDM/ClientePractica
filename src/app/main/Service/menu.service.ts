@@ -12,11 +12,6 @@ export class MenuService {
   constructor(private http:HttpClient) { }
 
   getall(): Observable<any> {
-  //   const token:any = localStorage.getItem('token')
-  //   const reqHeader = new HttpHeaders({ 
-  //     'Content-Type': 'application/json',
-  //     'Authorization': `Bearer ${token}`
-  //  });
-    return this.http.get(`${this.serverURL}category`);
+    return this.http.get(`${this.serverURL}get/views`);
   }
 }

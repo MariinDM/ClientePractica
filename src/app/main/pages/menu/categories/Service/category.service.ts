@@ -9,40 +9,20 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class CategoryService {
 
-  serverURL=environment.apiURL  
+  serverURL = environment.apiURL
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   getall(): Observable<any> {
-    const token:any = localStorage.getItem('token')
-    const reqHeader = new HttpHeaders({ 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.get(`${this.serverURL}index2`,{headers:reqHeader});
+    return this.http.get(`${this.serverURL}category`);
   }
-  getone(id:number): Observable<any> {
-    const token:any = localStorage.getItem('token')
-    const reqHeader = new HttpHeaders({ 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.get(`${this.serverURL}category/${id}`,{headers:reqHeader});
+  getone(id: number): Observable<any> {
+    return this.http.get(`${this.serverURL}category/${id}`);
   }
-  update(id:number, category:Category):Observable<any>{
-    const token:any = localStorage.getItem('token')
-    const reqHeader = new HttpHeaders({ 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.put(`${this.serverURL}category/${id}`, category,{headers:reqHeader})
+  update(id: number, category: Category): Observable<any> {
+    return this.http.put(`${this.serverURL}category/${id}`, category)
   }
-  delete(id:number):Observable<any>{
-    const token:any = localStorage.getItem('token')
-    const reqHeader = new HttpHeaders({ 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.delete(`${this.serverURL}category/${id}`,{headers:reqHeader})
+  delete(id: number): Observable<any> {
+    return this.http.delete(`${this.serverURL}category/${id}`)
   }
 }

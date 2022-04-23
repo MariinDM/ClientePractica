@@ -39,14 +39,20 @@ export class AuthService {
 
   logout():void{
     const token:any = localStorage.getItem('token')
-    const reqHeader = new HttpHeaders({ 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-   });
     localStorage.removeItem('token')
     this.http.post(`${this.serverURL}logout`,token)
   }
   register(user: User): Observable<any> {
     return this.http.post(`${this.serverURL}user/register`, user)
+  }
+
+  changePassword1(user: UserLogin): Observable<any> {
+    return this.http.post(`${this.serverURL}user/change1/password`, user)
+  }
+  changePassword2(password: string): Observable<any> {
+    return this.http.post(`${this.serverURL}user/change2/password`, password)
+  }
+  getUser(): Observable<any> {
+    return this.http.get(`${this.serverURL}user/get/user`)
   }
 }

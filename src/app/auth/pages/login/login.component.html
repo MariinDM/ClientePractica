@@ -14,6 +14,7 @@
             <input matInput type="password" name="password" minlength="8"  required  id="inpPassword"  placeholder="Password" required  formControlName="password" />
           </mat-form-field>
         </div>
+        <a routerLink="/auth/login" (click)="openDialog()" >¿Olvidaste tu contraseña? Cambiar Contraseña</a>
         <br>
         <button mat-raised-button color="primary" type="submit" >Login</button>
       </form>

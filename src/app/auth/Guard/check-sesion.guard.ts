@@ -11,6 +11,7 @@ export class CheckSesionGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       if(localStorage.getItem('token')){
+        // this.router.navigate(['/main/home'])
         return true;
       }
       return false;

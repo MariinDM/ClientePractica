@@ -14,35 +14,15 @@ export class RolService {
   constructor(private http:HttpClient) { }
 
   getall(): Observable<any> {
-    const token:any = localStorage.getItem('token')
-    const reqHeader = new HttpHeaders({ 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.get(`${this.serverURL}rol`,{headers:reqHeader});
+    return this.http.get(`${this.serverURL}rol`);
   }
   getone(id:number): Observable<any> {
-    const token:any = localStorage.getItem('token')
-    const reqHeader = new HttpHeaders({ 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.get(`${this.serverURL}rol/${id}`,{headers:reqHeader});
+    return this.http.get(`${this.serverURL}rol/${id}`);
   }
   update(id:number, rol:Rol):Observable<any>{
-    const token:any = localStorage.getItem('token')
-    const reqHeader = new HttpHeaders({ 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.put(`${this.serverURL}rol/${id}`, rol,{headers:reqHeader})
+    return this.http.put(`${this.serverURL}rol/${id}`, rol)
   }
   delete(id:number):Observable<any>{
-    const token:any = localStorage.getItem('token')
-    const reqHeader = new HttpHeaders({ 
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.delete(`${this.serverURL}rol/${id}`,{headers:reqHeader})
+    return this.http.delete(`${this.serverURL}rol/${id}`)
   }
 }

@@ -1,0 +1,21 @@
+<form class="form-cont" [formGroup]="authForm" (ngSubmit)="update()">
+    <h2 mat-dialog-title>Seccion Update</h2>
+    <mat-dialog-content class="mat-typography">
+        <div class="cont-input">
+            <mat-form-field>
+                <input matInput placeholder="Email" type="text" name="name" required formControlName="email" />
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <input matInput placeholder="Password" type="password" name="password" required
+                    formControlName="password" />
+            </mat-form-field>
+            <br>
+        </div>
+        <br>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button [mat-dialog-close]="true" color="primary" type="submit" >Update</button>
+    </mat-dialog-actions>
+</form>

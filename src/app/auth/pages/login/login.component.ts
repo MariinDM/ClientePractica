@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { errorMessage, timeMessage } from 'src/app/shared/alerts/alerts';
 import { UserLogin } from '../../Model/user';
 import { AuthService } from '../../Service/auth.service';
+import { DialogAuthComponent } from '../dialog-auth/dialog-auth.component';
 
 @Component({
   selector: 'app-login',
@@ -15,28 +17,21 @@ import { AuthService } from '../../Service/auth.service';
 export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
-  loginForm!:FormGroup;
-  user!:UserLogin;
+  loginForm!: FormGroup;
+  user!: UserLogin;
 
-  constructor(public authService: AuthService,public router:Router,private fb:FormBuilder, private spinner: NgxSpinnerService) {
+  constructor(public authService: AuthService, public router: Router, private fb: FormBuilder, private spinner: NgxSpinnerService, public dialog: MatDialog) {
     this.createFrom();
   }
 
   login() {
-    if(this.loginForm.invalid){
-      return Object.values(this.loginForm.controls).forEach(control=>{
+    if (this.loginForm.invalid) {
+      return Object.values(this.loginForm.controls).forEach(control => {
         control.markAsTouched();
       });
-    }else{
+    } else {
       this.setUser();
-      //Cambiar el Suscribe
-      // this.authService.login(this.user).subscribe((data:any)=>{
-      //   timeMessage('Sesion Iniciada',1500)
-      //   this.router.navigate(['/main/home'])
-      // },error=>{
-      //   errorMessage('Email o Contraseña Incorrecta')
-      // });
-      
+
       //SPINNER
       this.spinner.show()
       setTimeout(() => {
@@ -44,33 +39,31 @@ export class LoginComponent implements OnInit {
       }, 1000);
       //PETICION
       this.authService.login(this.user).subscribe({
-        next: (v) => { 
+        next: (v) => {
           this.router.navigate(['/main/home'])
         },
-        error: (e) => errorMessage('Email o Contraseña Incorrecta'),
-        complete: () => console.info('complete') 
+        error: (e) => 
+          errorMessage('Email o Contraseña Incorrrectas'),
+          // console.log(e)
+        complete: () => console.info('complete')
       })
     }
   }
 
-  createFrom():void{
+  createFrom(): void {
     this.loginForm = this.fb.group({
-      email:['', [Validators.required,Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')]],
-      password:['',[Validators.required,Validators.minLength(8)]]
+      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')]],
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 
-  // get getEmail(){
-  //   return this.loginForm.get('email') && this.loginForm.get('email')?.touched
-  // }
-  // get getPassword(){
-  //   return this.loginForm.get('password') && this.loginForm.get('password')?.touched
-  // }
-
-  setUser():void{
+  setUser(): void {
     this.user = {
       email: this.loginForm.get('email')?.value,
       password: this.loginForm.get('password')?.value,
     }
+  }
+  openDialog() {
+    this.dialog.open(DialogAuthComponent)
   }
 }
