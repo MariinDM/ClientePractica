@@ -11,3 +11,7 @@
 mat-card-header{
     text-align: center;
 }
+mat-label{
+    font-style: italic;
+    font-size: 1rem;
+}

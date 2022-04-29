@@ -3,6 +3,6 @@ export interface View {
     icon:string
     route:string
     level:string
-    status:string
-    category_id:string
+    status:boolean
+    category_id:number
 }

@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { errorMessage, successDialog } from 'src/app/shared/alerts/alerts';
 import { DialogUserComponent } from '../dialog-user/dialog-user.component';
 import { UserService } from '../Service/user.service';
+import { UserCreateComponent } from '../user-create/user-create.component';
 
 @Component({
   selector: 'app-table-user',
@@ -60,11 +61,19 @@ export class TableUserComponent implements AfterViewInit {
     this.dialog.open(DialogUserComponent, {
       data: {
         id: id
-      }
+      },
+      width:'40%',
+      height: '55%'
     });
     console.log(id)
   }
 
+  openUser() {
+    this.dialog.open(UserCreateComponent, {
+      width:'40%',
+      height: '60%'
+    })
+  }
 
   delete(id:number):void{
     this.userService.delete(id).subscribe({

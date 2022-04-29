@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { errorMessage, successDialog } from 'src/app/shared/alerts/alerts';
 import { DialogViewComponent } from '../dialog-view/dialog-view.component';
 import { ViewService } from '../Service/view.service';
+import { ViewCreateComponent } from '../view-create/view-create.component';
 
 @Component({
   selector: 'app-table-view',
@@ -59,11 +60,19 @@ export class TableViewComponent implements AfterViewInit {
     this.dialog.open(DialogViewComponent, {
       data: {
         id: id
-      }
+      },
+      width:'40%',
+      height: '70%'
     });
     console.log(id)
   }
 
+  openView() {
+    this.dialog.open(ViewCreateComponent, {
+      width:'40%',
+      height: '80%'
+    })
+  }
 
   delete(id:number):void{
     this.viewService.delete(id).subscribe({

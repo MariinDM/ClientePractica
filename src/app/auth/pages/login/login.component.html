@@ -7,20 +7,29 @@
         <br>
         <div class="cont-input">
           <mat-form-field>
-            <input matInput placeholder="Email" type="email"  name="email" aria-describedby="emailHelp" required formControlName="email" />
+            <input matInput placeholder="Email" type="email" name="email" aria-describedby="emailHelp" required
+              formControlName="email" />
+              <mat-error *ngIf="loginForm.controls['email'].hasError('required') && (loginForm.controls['email'].dirty || 
+                    loginForm.controls['email'].touched)">It's required field</mat-error>
+                <mat-error *ngIf="loginForm.controls['email'].hasError('pattern')">Enter a correct email.</mat-error>
           </mat-form-field>
           <br>
           <mat-form-field>
-            <input matInput type="password" name="password" minlength="8"  required  id="inpPassword"  placeholder="Password" required  formControlName="password" />
+            <input matInput type="password" name="password" minlength="8" required id="inpPassword"
+              placeholder="Password" required formControlName="password" />
+            <mat-error *ngIf="loginForm.controls['password'].hasError('required') && (loginForm.controls['password'].dirty || 
+                    loginForm.controls['password'].touched)">It's required field</mat-error>
+            <mat-error *ngIf="loginForm.controls['password'].hasError('minlength')">Password must be at least 8
+              characters long.</mat-error>
           </mat-form-field>
         </div>
-        <a routerLink="/auth/login" (click)="openDialog()" >¿Olvidaste tu contraseña? Cambiar Contraseña</a>
+        <a routerLink="/auth/login" (click)="openDialog()">¿Olvidaste tu contraseña? Cambiar Contraseña</a>
         <br>
-        <button mat-raised-button color="primary" type="submit" >Login</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
       </form>
       <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
       <br>
-      <a routerLink="/auth/register" ss="login" >¿No tienes cuenta? Crea una aquí</a>
+      <a routerLink="/auth/register" ss="login">¿No tienes cuenta? Crea una aquí</a>
       <br><br>
     </mat-card-content>
   </mat-card>

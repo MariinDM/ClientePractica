@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { timer } from 'rxjs';
 import { Category } from 'src/app/main/Model/category';
 import { errorMessage, successDialog } from 'src/app/shared/alerts/alerts';
 import { CategoryService } from '../Service/category.service';
@@ -19,12 +20,12 @@ export class DialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private categoryService: CategoryService, private fb: FormBuilder) {
     this.createFrom()
   }
-
   ngOnInit(): void {
     this.getone()
-    this.setCategory2()
+    timer(300).subscribe(()=>{
+      this.setValue()
+    })
   }
-
   getone() {
     this.categoryService.getone(this.data.id).subscribe({
       next: (v) => {
@@ -49,7 +50,7 @@ export class DialogComponent implements OnInit {
     this.categoryForm = this.fb.group({
       name: new FormControl('', [Validators.required, Validators.minLength(5)]),
       icon: new FormControl('', [Validators.required, Validators.maxLength(15)]),
-      level: new FormControl('', [Validators.required, Validators.maxLength(1)]),
+      level: new FormControl('', [Validators.required, Validators.pattern('[0-9]')]),
     });
   }
 
@@ -61,13 +62,10 @@ export class DialogComponent implements OnInit {
       status: this.cat.status,
     }
   }
-  setCategory2(): void {
-    this.cat = {
-      name: '',
-      icon: '',
-      level: '',
-      status: ''
-    }
+  setValue(){
+    this.categoryForm.controls['name'].setValue(this.cat.name)
+    this.categoryForm.controls['icon'].setValue(this.cat.icon)
+    this.categoryForm.controls['level'].setValue(this.cat.level)
   }
 
 }

@@ -34,6 +34,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { MatTableExporterModule } from 'mat-table-exporter';
+import { FormsModule } from '@angular/forms';
 
 const MaterialsModule = [
   MatTableExporterModule,
@@ -69,7 +70,8 @@ const MaterialsModule = [
   MatGridListModule,
   MatRadioModule,
   MatDatepickerModule,
-  MatTooltipModule
+  MatTooltipModule,
+  FormsModule
 ]
 
 @NgModule({

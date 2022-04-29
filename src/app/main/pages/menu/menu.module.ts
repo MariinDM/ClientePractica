@@ -12,6 +12,11 @@ import { DialogRolComponent } from './roles/dialog-rol/dialog-rol.component';
 import { TableRolComponent } from './roles/table-rol/table-rol.component';
 import { TableUserComponent } from './users/table-user/table-user.component';
 import { DialogUserComponent } from './users/dialog-user/dialog-user.component';
+import { CategoryCreateComponent } from './categories/category-create/category-create.component';
+import { RolCreateComponent } from './roles/rol-create/rol-create.component';
+import { UserCreateComponent } from './users/user-create/user-create.component';
+import { ViewCreateComponent } from './Views/view-create/view-create.component';
+import { TablaRolviewComponent } from './rolview/tabla-rolview/tabla-rolview.component';
 
 @NgModule({
     declarations: [
@@ -23,6 +28,11 @@ import { DialogUserComponent } from './users/dialog-user/dialog-user.component';
         TableRolComponent,
         TableUserComponent,
         DialogUserComponent,
+        CategoryCreateComponent,
+        RolCreateComponent,
+        UserCreateComponent,
+        ViewCreateComponent,
+        TablaRolviewComponent,
     ],
     entryComponents: [
         DialogComponent,

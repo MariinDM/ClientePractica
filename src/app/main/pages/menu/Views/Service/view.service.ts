@@ -19,6 +19,9 @@ export class ViewService {
   getone(id:number): Observable<any> {
     return this.http.get(`${this.serverURL}views/${id}`);
   }
+  insert(views:View):Observable<any>{
+    return this.http.post(`${this.serverURL}views`, views)
+  }
   update(id:number, views:View):Observable<any>{
     return this.http.put(`${this.serverURL}views/${id}`, views)
   }

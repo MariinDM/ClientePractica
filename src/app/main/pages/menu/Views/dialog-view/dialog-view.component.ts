@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { timer } from 'rxjs';
 import { View } from 'src/app/main/Model/view';
 import { errorMessage, successDialog } from 'src/app/shared/alerts/alerts';
+import { CategoryService } from '../../categories/Service/category.service';
 import { ViewService } from '../Service/view.service';
 
 @Component({
@@ -14,15 +16,18 @@ export class DialogViewComponent implements OnInit {
 
   viewForm!: FormGroup
   view!: View
-  dataViews!: any[]
+  dataCategories!: any[]
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private viewService: ViewService, private fb: FormBuilder) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private viewService: ViewService, private categoryService: CategoryService, private fb: FormBuilder) {
     this.createFrom()
   }
 
   ngOnInit(): void {
     this.getone()
-    this.setView2()
+    timer(300).subscribe(()=>{
+      this.setValue()
+    })
+    this.getallCategories()
   }
 
   getone() {
@@ -50,7 +55,7 @@ export class DialogViewComponent implements OnInit {
     this.viewForm = this.fb.group({
       name: new FormControl('', [Validators.required, Validators.minLength(5)]),
       icon: new FormControl('', [Validators.required, Validators.maxLength(15)]),
-      level: new FormControl('', [Validators.required, Validators.maxLength(1)]),
+      level: new FormControl('', [Validators.required, Validators.pattern('[0-9]')]),
       route: new FormControl('', [Validators.required]),
       category_id: new FormControl('', [Validators.required, Validators.maxLength(1)]),
     });
@@ -66,15 +71,19 @@ export class DialogViewComponent implements OnInit {
       status: this.view.status,
     }
   }
-  setView2(): void {
-    this.view = {
-      name: '',
-      icon: '',
-      level: '',
-      route: '',
-      category_id: '',
-      status: ''
-    }
+
+  setValue(){
+    this.viewForm.controls['name'].setValue(this.view.name)
+    this.viewForm.controls['icon'].setValue(this.view.icon)
+    this.viewForm.controls['level'].setValue(this.view.level)
+    this.viewForm.controls['route'].setValue(this.view.route)
+    this.viewForm.controls['category_id'].setValue(this.view.category_id)
   }
 
+  getallCategories(): void {
+    this.categoryService.getall().subscribe((data: any) => {
+      this.dataCategories = data.data
+      // console.log(this.dataCategories)
+    })
+  }
 }

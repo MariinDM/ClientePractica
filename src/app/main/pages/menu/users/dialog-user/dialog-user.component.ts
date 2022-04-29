@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { timer } from 'rxjs';
 import { User } from 'src/app/auth/Model/user';
 import { errorMessage, successDialog } from 'src/app/shared/alerts/alerts';
+import { RolService } from '../../roles/Service/rol.service';
 import { UserService } from '../Service/user.service';
 
 @Component({
@@ -14,15 +16,18 @@ export class DialogUserComponent implements OnInit {
 
   userForm!: FormGroup
   user!: User
-  dataUser!: any[]
+  dataRoles!:any[]
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService, private fb: FormBuilder) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService, private rolService:RolService, private fb: FormBuilder) {
     this.createFrom()
   }
 
   ngOnInit(): void {
     this.getone()
-    this.setView2()
+    timer(300).subscribe(()=>{
+      this.setValue()
+    })
+    this.getallRoles()
   }
 
   getone() {
@@ -35,7 +40,7 @@ export class DialogUserComponent implements OnInit {
     })
   }
   update() {
-    this.setView();
+    this.setUser();
     this.userService.update(this.data.id, this.user).subscribe({
       next: (v) => {
         successDialog('Registro Actualizado')
@@ -49,12 +54,12 @@ export class DialogUserComponent implements OnInit {
   createFrom(): void {
     this.userForm = this.fb.group({
       username: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      email: new FormControl('', [Validators.required, Validators.minLength(10), Validators.email]),
-      role_id: new FormControl('', [Validators.required, Validators.maxLength(1)]),
+      email: new FormControl('', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,3}$')]),
+      role_id: new FormControl('', [Validators.required]),
     });
   }
 
-  setView(): void {
+  setUser(): void {
     this.user = {
       username: this.userForm.get('username')?.value,
       email: this.userForm.get('email')?.value,
@@ -63,14 +68,17 @@ export class DialogUserComponent implements OnInit {
       status: this.user.status,
     }
   }
-  setView2(): void {
-    this.user = {
-      username: '',
-      email: '',
-      password: '',
-      role_id: 1,
-      status: true
-    }
+
+  setValue(){
+    this.userForm.controls['username'].setValue(this.user.username)
+    this.userForm.controls['email'].setValue(this.user.email)
+    this.userForm.controls['role_id'].setValue(this.user.role_id)
+  }
+
+  getallRoles(): void {
+    this.rolService.getall().subscribe((data:any)=>{
+      this.dataRoles = data.data
+    })
   }
 
 }

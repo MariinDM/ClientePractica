@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { errorMessage, successDialog } from 'src/app/shared/alerts/alerts';
+import { CategoryCreateComponent } from '../category-create/category-create.component';
 import { DialogComponent } from '../dialog/dialog.component';
 import { CategoryService } from '../Service/category.service';
 
@@ -16,23 +17,23 @@ import { CategoryService } from '../Service/category.service';
 export class TableComponent implements AfterViewInit {
 
   dataCategories!: any[]
-
+  
   displayedColumns: string[] = ['name', 'icon', 'level', 'status', 'options'];
+
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator | any;
   @ViewChild(MatSort) sort!: MatSort | any;
 
   constructor(private categoryService: CategoryService, public dialog: MatDialog) {
-
     this.getall()
-
   }
-  getall():void{
+
+  getall(): void {
     this.categoryService.getall().subscribe((data: any) => {
       this.dataCategories = data.data
 
-      console.log(this.dataCategories)
+      // console.log(this.dataCategories)
       const category = this.dataCategories
 
       this.dataSource = new MatTableDataSource(category);
@@ -56,21 +57,30 @@ export class TableComponent implements AfterViewInit {
     }
   }
 
-  openDialog(id:number) {
+  openDialog(id: number) {
     this.dialog.open(DialogComponent, {
       data: {
         id: id
-      }
+      },
+      width:'50%',
+      height:'55%'
     });
-    console.log(id  )
+    // console.log(id)
+  }
+
+  openCategory() {
+    this.dialog.open(CategoryCreateComponent, {
+      width:'50%',
+      height:'60%'
+    })
   }
 
 
-  delete(id:number):void{
+  delete(id: number): void {
     this.categoryService.delete(id).subscribe({
-      next:(v)=>successDialog('Cambio Actualizado'),
-      error:(e)=>errorMessage('Ocurrio un Error'),
-      complete:()=>console.info('Completed')
+      next: (v) => successDialog('Cambio Actualizado'),
+      error: (e) => errorMessage('Ocurrio un Error'),
+      complete: () => console.info('Completed')
     })
   }
 }

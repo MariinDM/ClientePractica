@@ -3,18 +3,30 @@
     <mat-dialog-content class="mat-typography">
         <div class="cont-input">
             <mat-form-field>
-                <input matInput placeholder="Username" type="text" name="username" required formControlName="username"
-                    value="{{user.username}}" />
+                <input matInput placeholder="Username" type="text" name="username" required
+                    formControlName="username" />
+                <mat-error *ngIf="userForm.controls['username'].hasError('required') && (userForm.controls['username'].dirty || 
+                    userForm.controls['username'].touched)">It's required field</mat-error>
+                <mat-error *ngIf="userForm.controls['username'].hasError('minlength')">Password must be at least 5
+                    characters long.</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field>
-                <input matInput placeholder="email" type="email" name="email" required formControlName="email"
-                    value="{{user.email}}" />
+                <input matInput placeholder="email" type="email" name="email" required formControlName="email" />
+                <mat-error *ngIf="userForm.controls['email'].hasError('required') && (userForm.controls['email'].dirty || 
+                    userForm.controls['email'].touched)">It's required field</mat-error>
+                <mat-error *ngIf="userForm.controls['email'].hasError('pattern')">Enter a correct email.</mat-error>
             </mat-form-field>
             <br>
             <mat-form-field>
-                <input matInput placeholder="Rol" type="text" name="rol" required formControlName="role_id"
-                    value="{{user.role_id}}" />
+                <mat-label>Choose Category</mat-label>
+                <mat-select formControlName="role_id">
+                    <mat-option *ngFor="let item of dataRoles" [value]="item.id">
+                        {{item.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="userForm.controls['role_id'].hasError('required') && (userForm.controls['role_id'].dirty || 
+                userForm.controls['role_id'].touched)">It's required field</mat-error>
             </mat-form-field>
             <br>
         </div>
@@ -22,6 +34,7 @@
     </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button [mat-dialog-close]="true" color="primary" type="submit">Update</button>
+        <button mat-button [mat-dialog-close]="true" color="primary" [disabled]="userForm.invalid"
+            type="submit">Update</button>
     </mat-dialog-actions>
 </form>

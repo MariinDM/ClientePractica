@@ -19,6 +19,9 @@ export class RolService {
   getone(id:number): Observable<any> {
     return this.http.get(`${this.serverURL}rol/${id}`);
   }
+  insert(rol:Rol):Observable<any>{
+    return this.http.post(`${this.serverURL}rol`, rol)
+  }
   update(id:number, rol:Rol):Observable<any>{
     return this.http.put(`${this.serverURL}rol/${id}`, rol)
   }

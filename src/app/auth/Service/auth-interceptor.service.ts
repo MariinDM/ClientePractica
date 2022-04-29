@@ -6,12 +6,12 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthInterceptorService implements HttpInterceptor{
+export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private router:Router) { }
+  constructor(private router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-  
+
     const token = localStorage.getItem('token');
 
     let request = req;
@@ -26,13 +26,13 @@ export class AuthInterceptorService implements HttpInterceptor{
 
     return next.handle(request).pipe(
       catchError((err: HttpErrorResponse) => {
-
-        if (err.status === 401) {
-          this.router.navigate(['/auth/login']);
+        if (err instanceof HttpErrorResponse && err.status === 401) {
+          // localStorage.clear()
+          // this.router.navigate(['/auth/login']);
+          // console.log('Si entro')
+          
         }
-
-        return throwError( err );
-
+        return throwError(err);
       })
     );
   }

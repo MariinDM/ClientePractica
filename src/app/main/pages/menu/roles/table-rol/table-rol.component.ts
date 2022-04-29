@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { errorMessage, successDialog } from 'src/app/shared/alerts/alerts';
 import { DialogRolComponent } from '../dialog-rol/dialog-rol.component';
+import { RolCreateComponent } from '../rol-create/rol-create.component';
 import { RolService } from '../Service/rol.service';
 
 @Component({
@@ -59,9 +60,18 @@ export class TableRolComponent implements AfterViewInit {
     this.dialog.open(DialogRolComponent, {
       data: {
         id: id
-      }
+      },
+      width:'40%',
+      height:'40%'
     });
     console.log(id)
+  }
+
+  openRol() {
+    this.dialog.open(RolCreateComponent,{
+      width:'40%',
+      height:'40%'
+    })
   }
 
 

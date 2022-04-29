@@ -1,0 +1,51 @@
+<form class="form-cont" [formGroup]="viewForm" (ngSubmit)="insert()">
+    <h2 mat-dialog-title>Agregar Nueva Vista</h2>
+    <mat-dialog-content class="mat-typography">
+        <div class="cont-input">
+            <mat-form-field appearance="fill">
+                <input matInput placeholder="Name" type="text" name="name" required formControlName="name" />
+                <mat-error *ngIf="viewForm.controls['name'].hasError('required') && (viewForm.controls['name'].dirty || 
+                viewForm.controls['name'].touched)">It's required field</mat-error>
+                <mat-error *ngIf="viewForm.controls['name'].hasError('minlength')">Name must be at least 5 characters long.</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <input matInput placeholder="Icon" type="text" name="icon" required formControlName="icon" />
+                <mat-error *ngIf="viewForm.controls['icon'].hasError('required') && (viewForm.controls['icon'].dirty || 
+                viewForm.controls['icon'].touched)">It's required field</mat-error>
+                <mat-error *ngIf="viewForm.controls['icon'].hasError('maxlength')">Name must be at max 15 characters long.</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <input matInput placeholder="Level" type="text" name="level" required formControlName="level" />
+                <mat-error *ngIf="viewForm.controls['level'].hasError('required') && (viewForm.controls['level'].dirty || 
+                viewForm.controls['level'].touched)">It's required field</mat-error>
+                <mat-error *ngIf="viewForm.controls['level'].hasError('pattern')">Only Numbers.</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <input matInput placeholder="Route" type="text" name="route" required formControlName="route" />
+                <mat-error *ngIf="viewForm.controls['route'].hasError('required') && (viewForm.controls['route'].dirty || 
+                viewForm.controls['route'].touched)">It's required field</mat-error>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Choose Category</mat-label>
+                <mat-select formControlName="category_id">
+                    <mat-option *ngFor="let item of dataCategories" [value]="item.id">
+                        {{item.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="viewForm.controls['category_id'].hasError('required') && (viewForm.controls['category_id'].dirty || 
+                viewForm.controls['category_id'].touched)">It's required field</mat-error>
+            </mat-form-field>
+            <br>
+        </div>
+        <br>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-button [mat-dialog-close]="true" color="primary" [disabled]="viewForm.invalid"
+            type="submit">Agregar</button>
+    </mat-dialog-actions>
+</form>

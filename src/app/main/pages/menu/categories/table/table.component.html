@@ -1,16 +1,21 @@
 <div class="container">
-    <div class="docs-example-viewer-title ng-star-inserted">
+    <div class="docs-example-viewer-title ng-star-inserted filter">
+        <button mat-raised-button (click)="openCategory()" color="primary">
+            <mat-icon>add</mat-icon>Nuevo
+        </button>
         <div class="docs-example-viewer-title-spacer separate">
             <mat-form-field appearance="standard">
                 <mat-label>Filter</mat-label>
                 <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
             </mat-form-field>
         </div>
-        <button mat-focus-indicator mat-tooltip-trigger mat-icon-button mat-button-base (click)="getall()" mat-raised-button color="primary">
+        <button mat-focus-indicator mat-tooltip-trigger mat-icon-button mat-button-base (click)="getall()"
+            mat-raised-button color="primary">
             <mat-icon>refresh</mat-icon>
         </button>
-        <button mat-focus-indicator mat-tooltip-trigger mat-icon-button mat-button-base (click)="exporter.exportTable('xlsx')" mat-raised-button color="success">
-            <mat-icon >archive</mat-icon>
+        <button mat-focus-indicator mat-tooltip-trigger mat-icon-button mat-button-base
+            (click)="exporter.exportTable('xlsx')" mat-raised-button color="success">
+            <mat-icon>archive</mat-icon>
         </button>
     </div>
 

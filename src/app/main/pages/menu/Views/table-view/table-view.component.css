@@ -15,5 +15,9 @@ th {
 .separate {
     display: inline-block;
     align-items: space-between;
-    width: 92%;
+    width: 79%;
+}
+
+.filter button{
+    margin: 0.5rem;
 }

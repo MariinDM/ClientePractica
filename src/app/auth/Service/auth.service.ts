@@ -9,41 +9,57 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class AuthService {
 
-  serverURL=environment.apiURL  
+  serverURL = environment.apiURL
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  login(user:UserLogin):Observable<any>{
+  login(user: UserLogin): Observable<any> {
     return this.http.post(`${this.serverURL}user/login`, user)
-    .pipe(
-      map((res:any)=>{
-        this.saveToken(res.token.token)
-        return res
-      }),
-      catchError((err)=>this.handlerError(err))
-    );
+      .pipe(
+        map((res: any) => {
+          // console.log(res)
+          this.saveToken(res.token.token, res.token.refreshToken)
+          return res
+        }),
+        catchError((err) => this.handlerError(err))
+      );
   }
 
-  private saveToken(token:string):void{
-    localStorage.setItem("token",token)
+  private saveToken(token: string, refreshToken: string): void {
+    localStorage.setItem("token", token)
+    localStorage.setItem("refreshToken", refreshToken)
 
   }
 
-  private handlerError(err:any):Observable<never>{
+  private clearToken(): void {
+    localStorage.removeItem("token")
+    localStorage.removeItem("refreshToken")
+
+  }
+
+  private handlerError(err: any): Observable<never> {
     let errorMessage = `Ocurrio un Error`;
-    if(err){
-      errorMessage=`Error: code ${err.mesagge}`;
+    if (err) {
+      errorMessage = `Error: code ${err.mesagge}`;
     }
     return throwError(errorMessage)
   }
 
-  logout():void{
-    const token:any = localStorage.getItem('token')
-    localStorage.removeItem('token')
-    this.http.post(`${this.serverURL}logout`,token)
+  logout(): void {
+    const token: any = localStorage.getItem('token')
+    this.clearToken()
+    this.http.post(`${this.serverURL}logout`, token)
   }
+
   register(user: User): Observable<any> {
     return this.http.post(`${this.serverURL}user/register`, user)
+      .pipe(
+        map((res: any) => {
+          this.saveToken(res.token.token, res.token.refreshToken)
+          return res
+        }),
+        catchError((err) => this.handlerError(err))
+      )
   }
 
   changePassword1(user: UserLogin): Observable<any> {

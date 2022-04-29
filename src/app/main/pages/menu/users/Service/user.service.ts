@@ -19,6 +19,9 @@ export class UserService {
   getone(id:number): Observable<any> {
     return this.http.get(`${this.serverURL}usuarios/${id}`);
   }
+  insert(usuarios:User):Observable<any>{
+    return this.http.post(`${this.serverURL}usuarios`, usuarios)
+  }
   update(id:number, usuarios:User):Observable<any>{
     return this.http.put(`${this.serverURL}usuarios/${id}`, usuarios)
   }

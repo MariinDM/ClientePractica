@@ -1,28 +1,41 @@
 <div class="contenedor">
-    <mat-card>
-      <mat-card-content>
-        <form class="form-cont" [formGroup]="loginForm" (ngSubmit)="register()">
-          <br>
-          <h1>Registrarse</h1>
-          <br>
-          <div class="cont-input">
-            <mat-form-field>
-              <input matInput placeholder="Username" type="text"  name="username" required formControlName="username"/>
-            </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Email" type="email"  name="email" aria-describedby="emailHelp" required formControlName="email"/>
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-              <input matInput type="password" name="password" minlength="8"  required  id="inpPassword"  placeholder="Password" required  formControlName="password"/>
-            </mat-form-field>
-          </div>
-          <br>
-          <button mat-raised-button color="primary" type="submit" >Registrar</button>
-        </form>
+  <mat-card>
+    <mat-card-content>
+      <form class="form-cont" [formGroup]="loginForm" (ngSubmit)="register()">
         <br>
-        <a routerLink="/auth/login" ss="registrate" >¿Ya tienes una cuenta? Inicia Sesión</a>
-        <br><br>
-      </mat-card-content>
-    </mat-card>
-  </div>
+        <h1>Registrarse</h1>
+        <br>
+        <div class="cont-input">
+          <mat-form-field>
+            <input matInput placeholder="Username" type="text" name="username" required formControlName="username" />
+            <mat-error *ngIf="loginForm.controls['username'].hasError('required') && (loginForm.controls['username'].dirty || 
+                    loginForm.controls['username'].touched)">It's required field</mat-error>
+            <mat-error *ngIf="loginForm.controls['username'].hasError('minlength')">Password must be at least 5
+              characters long.</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Email" type="email" name="email" aria-describedby="emailHelp" required
+              formControlName="email" />
+            <mat-error *ngIf="loginForm.controls['email'].hasError('required') && (loginForm.controls['email'].dirty || 
+                    loginForm.controls['email'].touched)">It's required field</mat-error>
+            <mat-error *ngIf="loginForm.controls['email'].hasError('pattern')">Enter a correct email.</mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput type="password" name="password" minlength="8" required id="inpPassword"
+              placeholder="Password" required formControlName="password" />
+            <mat-error *ngIf="loginForm.controls['password'].hasError('required') && (loginForm.controls['password'].dirty || 
+                    loginForm.controls['password'].touched)">It's required field</mat-error>
+            <mat-error *ngIf="loginForm.controls['password'].hasError('minlength')">Password must be at least 8
+              characters long.</mat-error>
+          </mat-form-field>
+        </div>
+        <br>
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Registrar</button>
+      </form>
+      <br>
+      <a routerLink="/auth/login" ss="registrate">¿Ya tienes una cuenta? Inicia Sesión</a>
+      <br><br>
+    </mat-card-content>
+  </mat-card>
+</div>

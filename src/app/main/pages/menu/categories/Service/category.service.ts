@@ -19,6 +19,9 @@ export class CategoryService {
   getone(id: number): Observable<any> {
     return this.http.get(`${this.serverURL}category/${id}`);
   }
+  insert(category: Category): Observable<any> {
+    return this.http.post(`${this.serverURL}category`, category)
+  }
   update(id: number, category: Category): Observable<any> {
     return this.http.put(`${this.serverURL}category/${id}`, category)
   }
